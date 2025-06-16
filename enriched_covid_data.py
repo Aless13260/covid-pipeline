@@ -50,46 +50,41 @@ Death data is more lacking than confirmed data, and data sources may not be comp
 """
 
 # Start Spark session
-spark = (
-    SparkSession.builder
-    .appName("CovidDataPipeline")
-    .getOrCreate()
+spark = SparkSession.builder.appName("CovidDataPipeline").getOrCreate()
+
+#  Load raw JSON from file
+df_raw =df
+
+#  Ensure correct types & date parsing
+df_spark = df_raw.withColumn("date", to_date(col("date"), "yyyy-MM-dd"))
+
+# Define window by country, state, date
+window_spec = Window.partitionBy("country", "state").orderBy("date")
+
+#  Add previous confirmed & death columns
+df_spark = (
+    df_spark
+    .withColumn("prev_confirmed", lag("confirmed").over(window_spec))
+    .withColumn("prev_deaths", lag("deaths").over(window_spec))
 )
 
-# Load JSON with schema
-df_raw = (
-    spark.read
-    .schema("""
-        state       STRING,
-        parliament  STRING,
-        gender      STRING,
-        population  INT,
-        date        STRING
-    """)
-    .json(local_path)
-    .repartition(200)
+# Calculate daily new values
+df_spark = (
+    df_spark
+    .withColumn("daily_new_cases", (col("confirmed") - col("prev_confirmed")))
+    .withColumn("daily_new_deaths", (col("deaths") - col("prev_deaths")))
 )
 
-# Enrich data: add Daily new confirmed cases daily_new_cases and daily new deaths to the original DataFrame
-# Sort by country, state, date
-df = df.sort_values(["country", "state", "date"])
+# Replace nulls with 0
+df_spark = (
+    df_spark
+    .withColumn("daily_new_cases", when(col("daily_new_cases").isNull(), 0).otherwise(col("daily_new_cases")))
+    .withColumn("daily_new_deaths", when(col("daily_new_deaths").isNull(), 0).otherwise(col("daily_new_deaths")))
+)
 
-# New daily confirmed cases
-df["prev_confirmed"] = df.groupby(["country", "state"])["confirmed"].shift(1)
-df["daily_new_cases"] = df["confirmed"] - df["prev_confirmed"]
+# Show result
+df_spark.select("date", "country", "state", "confirmed", "daily_new_cases", "deaths", "daily_new_deaths").show(10)
 
-# New deaths per day
-df["prev_deaths"] = df.groupby(["country", "state"])["deaths"].shift(1)
-df["daily_new_deaths"] = df["deaths"] - df["prev_deaths"]
-
-# Fill missing values ​​with 0 (first day /null value processing)
-df["daily_new_cases"] = df["daily_new_cases"].fillna(0)
-df["daily_new_deaths"] = df["daily_new_deaths"].fillna(0)
-
-#check the new dataframe
-print(df[["date", "country", "state", "confirmed", "daily_new_cases", "deaths", "daily_new_deaths"]].head(10))
-
-#save the dataframe
-df_enriched = df.copy()
-df_enriched.to_json("enriched_covid_data.json", orient="records", date_format="iso")
+# Save 
+df_spark.write.json("enriched_covid_data_spark.json")
 
