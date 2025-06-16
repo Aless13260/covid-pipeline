@@ -1,0 +1,4 @@
+spark-submit \
+  --master yarn \
+  --packages org.mongodb.spark:mongo-spark-connector_2.11:2.4.4 \
+  offload_to_mongo.py
