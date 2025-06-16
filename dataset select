@@ -1,0 +1,84 @@
+1. Johns Hopkins University（JHU）：Classical time series data
+
+Warehouse address：https://github.com/CSSEGISandData/COVID-19
+
+Key files（Path：csse_covid_19_data/csse_covid_19_time_series/）：
+time_series_covid19_confirmed_global.csv：Daily global confirmed cases (wide table structure, with dynamically expanding date columns)
+time_series_covid19_deaths_global.csv：Daily global death cases (the same as above)
+time_series_covid19_recovered_global.csv：Daily global recovered cases (Historical data is complete. It may not be updated in the later stage, but it is suitable for project demonstration.)
+Features: Timely data updates, divided by region (country/province), in wide table format (with date as columns), suitable for testing Spark's processing ability for "dynamic columns"
+
+
+2. Our World in Data（OWID）：Multi - dimensional comprehensive data
+
+Warehouse address：https://github.com/owid/covid-19-data
+
+Key files：owid-covid-data.csv(in the root directory)
+Content: Covers daily data of countries around the world, 
+including: Core indicators: confirmed cases, deaths, severe cases; Extended indicators: vaccination (total doses, full vaccination rate), nucleic acid testing, policies (lockdowns, mask mandates), economic impact, etc. 
+Features: Long table format (each row = country + date), with extremely rich dimensions, suitable for demonstrating "indicator differences" in "multi-source heterogeneous" data. 
+In the future, Spark's multi-field processing can be tested. 
+
+
+3.The New York Times (NYT) US COVID-19 Data Warehouse
+
+Warehouse address：https://github.com/nytimes/covid-19-data
+
+Key files：us.csv  National Summary of the United States,us-states.csv   Data of each state in the United States,us-counties.csv   Data of each county in the United States
+
+The New York Times has been tracking the COVID-19 pandemic in the US for a long time. 
+The data has been rigorously verified and is still being updated as of 2025 (you can check the repository commit records). It is more stable than some of the old official links.
+
+Multi-source Heterogeneous Complementation:
+Comparison with JHU (global wide table): NYT is a long table exclusive to the United States (each row = region + date). 
+The structural differences are obvious, and it can test Spark's data processing for "long tables + regional breakdowns".
+Comparison with OWID (Multi - country and Multi - indicator): NYT focuses on core case indicators (only confirmed cases and deaths). 
+The indicators are more concise, and it can simulate the cleaning scenario of "simply structured data" (for example, calculating new cases: new cases on the current day = cumulative cases on the current day - cumulative cases on the previous day).
+
+
+
+
+
+
+
+
+
+
+The unique value of each dataset and its suitability for the project
+
+
+1.Johns Hopkins University（JHU）：Wide table structure + Global coverage
+Manifestation of heterogeneity:
+Structural Heterogeneity: Adopt a wide table format (with dates as columns. For example, in time_series_covid19_confirmed_global.csv, each column represents a date, and each row represents a country/region), which is in sharp contrast to the long tables of other datasets.
+Coverage of Heterogeneity: Focus on the basic case data (confirmed cases, deaths, recoveries) of the global pandemic, covering over 200 countries/regions, with the widest geographical scope.
+Value of technical verification:
+Test Spark's processing ability for wide tables (for example, use the unpivot operation to convert a wide table into a long table to prepare for subsequent unified analysis).
+Verify the cross - regional data aggregation logic (for example, when calculating the global daily new cases, issues such as time zones of different countries and data reporting delays need to be addressed).
+Analytical value:
+Provide the most basic pandemic time - series benchmark data, which can be used as the "underlying reference" for subsequent complex analyses (such as comparing the association between OWID's vaccine data and JHU's case data).
+
+2. Our World in Data（OWID）：Long table structure + multi - dimensional indicators
+Manifestation of heterogeneity:
+Structural Heterogeneity: Adopt a long table format (each row = country + date), forming "structural complementarity" with JHU's wide table.
+Indicator Heterogeneity: Besides the core case indicators, dozens of dimensions such as vaccination, policies (lockdowns/mask mandates), economy (GDP impact), and medical resources (ICU beds) are added. The complexity of indicators is much higher than that of JHU.
+Value of technical verification:
+Test Spark's data cleaning ability for multi-field data (such as handling indicators with different units: "vaccine doses" are absolute values, and "vaccination rate" is a percentage; handling missing values: early vaccine data is NaN).
+Verify the correlation analysis of multi - source indicators (for example, correlate "vaccination rate" and "daily new cases" through a join operation to explore causal relationships). 
+Analytical value:Provide a "rich data" foundation for in - depth analysis, which can support the core goal of "generating insights" in the project (such as analyzing "the change in the case growth rate after the implementation of the mask mandate").
+
+
+3. The New York Times (NYT): Long table structure + Sub - divided data of the United States
+Manifestation of heterogeneity:
+Coverage Heterogeneity: Focus on the United States mainland (sub - divided at the national, state, and county levels), forming geographical complementarity with the "global perspective" of JHU/OWID.
+Indicator Heterogeneity: Only retain the most core case indicators (confirmed cases, deaths). The indicator complexity is much lower than that of OWID, forming an "indicator complexity gradient" with JHU/OWID.
+Value of technical verification:
+Test Spark's processing ability for geographically segmented data (such as calculating the epidemic trend by "state" grouping, handling duplicates/conflicts in county - level data).
+Verify the core calculation logic of time series (such as calculating "daily new cases" through window functions: new cases on the current day = cumulative cases on the current day - cumulative cases on the previous day).
+Analytical value:
+Provide a "micro - perspective" on the COVID - 19 pandemic in the United States, which can be associated with OWID's macro - data of the United States (such as policies, economy), forming an analysis chain of "sub - division → macro - view".
+
+
+
+
+
+
