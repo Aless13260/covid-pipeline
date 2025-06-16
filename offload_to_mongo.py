@@ -1,0 +1,35 @@
+# File: offload_to_mongo.py
+
+from pyspark.sql import SparkSession
+
+if __name__ == "__main__":
+
+    # This script is ONLY for moving existing data from HDFS to MongoDB.
+
+    spark = SparkSession.builder \
+        .appName("HDFS to MongoDB Offload") \
+        .getOrCreate()
+
+    # --- POINT TO YOUR EXISTING HDFS DATA ---
+    # Replace this with the HDFS path where your Parquet files are already saved.
+    hdfs_input_path = "hdfs://<your_namenode_host>:8020/path/to/your/spark_output.parquet"
+    
+    print(f"Reading existing Parquet data from: {hdfs_input_path}")
+    df = spark.read.parquet(hdfs_input_path)
+
+    # --- CONFIGURE THE MONGODB DESTINATION ---
+    # Replace this with your MongoDB connection details.
+    mongo_output_uri = "mongodb://<your_mongodb_host>:27017/your_database.your_collection"
+    
+    print(f"Writing data to MongoDB at: {mongo_output_uri}")
+    
+    # --- START THE COPY ---
+    # This writes the DataFrame loaded from HDFS into MongoDB.
+    df.write.format("mongo") \
+        .mode("overwrite") \
+        .option("uri", mongo_output_uri) \
+        .save()
+        
+    print("Offload complete! Data has been copied to MongoDB.")
+
+    spark.stop()
