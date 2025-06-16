@@ -12,14 +12,14 @@ if __name__ == "__main__":
 
     # --- POINT TO YOUR EXISTING HDFS DATA ---
     # Replace this with the HDFS path where your Parquet files are already saved.
-    hdfs_input_path = "hdfs://<your_namenode_host>:8020/path/to/your/spark_output.parquet"
+    hdfs_input_path = "hdfs://localhost:9000/user/alexss/group_project/covid_cleaned_combined"
     
     print(f"Reading existing Parquet data from: {hdfs_input_path}")
     df = spark.read.parquet(hdfs_input_path)
 
     # --- CONFIGURE THE MONGODB DESTINATION ---
     # Replace this with your MongoDB connection details.
-    mongo_output_uri = "mongodb://<your_mongodb_host>:27017/your_database.your_collection"
+    mongo_output_uri = "mongodb://localhost:27017/your_database.your_collection"
     
     print(f"Writing data to MongoDB at: {mongo_output_uri}")
     
