@@ -1,16 +1,27 @@
+# File: export_to_json_lines.py
+
 from pyspark.sql import SparkSession
 
 if __name__ == "__main__":
-    spark = SparkSession.builder.appName("Create Sample").getOrCreate()
+    spark = SparkSession.builder \
+        .appName("Export to JSON Lines") \
+        .getOrCreate()
 
-    # Read the full dataset from HDFS
-    full_df = spark.read.parquet("hdfs://localhost:9000/user/alexss/group_project/covid_cleaned_combined")
+    # The full, real dataset in HDFS
+    input_path = "hdfs://localhost:9000/user/alexss/group_project/covid_cleaned_combined"
 
-    # Take a small sample and consolidate it into a single partition
-    sample_df = full_df.limit(1000).coalesce(1)
+    # The HDFS directory where Spark will write the intermediate JSON Lines files
+    output_path = "hdfs://localhost:9000/user/alexss/group_project/intermediate_json_output"
 
-    # Save it as a single JSON file in your current directory
-    sample_df.write.mode("overwrite").json("sample_data_for_team")
+    print(f"Reading Parquet data from: {input_path}")
+    df = spark.read.parquet(input_path)
 
-    print("Sample data has been created in the 'sample_data_for_team' folder.")
+    # Coalesce to control the number of output files (optional, but good practice)
+    # This will create 16 part-files. Adjust as needed.
+    df = df.coalesce(16)
+
+    print(f"Writing distributed JSON Lines to: {output_path}")
+    df.write.mode("overwrite").json(output_path)
+
+    print("Step 1 complete. Intermediate JSON files have been created in HDFS.")
     spark.stop()
