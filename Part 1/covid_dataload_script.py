@@ -10,45 +10,10 @@ spark = SparkSession.builder \
     .appName("CovidDataCombination") \
     .getOrCreate()
 
-print("SparkSession created. Starting data download and processing...")
+print("SparkSession created. Starting data processing...")
 
 # ==============================================================================
-# 2. DOWNLOAD DATA: Fetch files from the web
-# ==============================================================================
-# JHU, OWID, and NYT URLs
-jhu_base_url = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/"
-jhu_files = [
-    "time_series_covid19_confirmed_global.csv",
-]
-owid_url = "https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/owid-covid-data.csv"
-nyt_url = "https://raw.githubusercontent.com/nytimes/covid-19-data/master/us.csv"
-
-# Define local file paths
-path_confirmed = "time_series_covid19_confirmed_global.csv"
-path_owid = "owid-covid-data.csv"
-path_nyt = "nyt_us.csv"
-
-# Download the files
-print("Downloading JHU data...")
-for f in jhu_files:
-    r = requests.get(jhu_base_url + f)
-    with open(f, 'wb') as fp:
-        fp.write(r.content)
-
-print("Downloading OWID data...")
-r = requests.get(owid_url)
-with open(path_owid, 'wb') as fp:
-    fp.write(r.content)
-
-print("Downloading NYT data...")
-r = requests.get(nyt_url)
-with open(path_nyt, 'wb') as fp:
-    fp.write(r.content)
-
-print("All files downloaded.")
-
-# ==============================================================================
-# 3. PROCESS JHU DATA
+# 1. PROCESS JHU DATA
 # ==============================================================================
 print("Processing JHU data...")
 df_jhu_raw = spark.read.csv("hdfs://localhost:9000/user/alexss/group_project/time_series_covid19_confirmed_global.csv", header=True, inferSchema=True)
@@ -73,7 +38,7 @@ df_jhu_std = df_jhu_unpivoted \
     .select("date", "country", "state", "confirmed", "deaths", "recovered", "source")
 
 # ==============================================================================
-# 4. PROCESS OWID DATA
+# 2. PROCESS OWID DATA
 # ==============================================================================
 print("Processing OWID data...")
 df_owid_raw = spark.read.csv("hdfs://localhost:9000/user/alexss/group_project/owid-covid-data.csv", header=True, inferSchema=True)
@@ -89,7 +54,7 @@ df_owid_std = df_owid_raw \
     .select("date", "country", "state", "confirmed", "deaths", "recovered", "source")
 
 # ==============================================================================
-# 5. PROCESS NYT DATA
+# 3. PROCESS NYT DATA
 # ==============================================================================
 print("Processing NYT data...")
 df_nyt_raw = spark.read.csv("hdfs://localhost:9000/user/alexss/group_project/nyt_us.csv", header=True, inferSchema=True)
@@ -104,7 +69,7 @@ df_nyt_std = df_nyt_raw \
     .select("date", "country", "state", "confirmed", "deaths", "recovered", "source")
 
 # ==============================================================================
-# 6. COMBINE AND SAVE THE DATA
+# 4. COMBINE AND SAVE THE DATA
 # ==============================================================================
 print("Combining all data sources...")
 df_all = df_jhu_std.union(df_owid_std).union(df_nyt_std)
