@@ -1,0 +1,281 @@
+
+country,cum_confirmed,cum_deaths
+Ghana,172062,1462.0
+Czechia,4761919,43509.0
+Qatar,514524,690.0
+South Africa,4072765,102595.0
+South Korea,34571873,35934.0
+Senegal,89485,1971.0
+Iceland,210374,186.0
+Indonesia,6829399,162059.0
+Togo,39530,290.0
+Fiji,69047,885.0
+Kosovo,274279,3212.0
+Algeria,272139,6881.0
+Australia,11861161,25236.0
+Northern Cyprus,"",""
+Liechtenstein,21588,89.0
+United Arab Emirates,1067030,2349.0
+South Sudan,18823,147.0
+Cameroon,125246,1974.0
+Israel,4841558,12707.0
+Brunei,347723,179.0
+Burkina Faso,22139,400.0
+Sao Tome and Principe,6771,80.0
+Myanmar,642885,19494.0
+Guadeloupe,203235,1021.0
+Suriname,82501,1406.0
+Isle of Man,38008,116.0
+Ecuador,1077445,36050.0
+Niue,1074,0.0
+Nicaragua,16185,245.0
+Papua New Guinea,46864,670.0
+Equatorial Guinea,17229,183.0
+French Guiana,98041,413.0
+Congo,25227,389.0
+Saint Barthelemy,5507,5.0
+
+country,cum_confirmed,cum_deaths
+Cabo Verde,63244,""
+Cambodia,139319,3056.0
+United States Virgin Islands,25389,132.0
+Croatia,1317144,18752.0
+Cyprus,696410,1451.0
+Seychelles,51886,172.0
+Chad,7702,194.0
+Thailand,4799180,34715.0
+Afghanistan,235214,7998.0
+Sweden,2755181,27399.0
+Romania,3541619,68825.0
+Armenia,452273,8777.0
+Lesotho,36138,709.0
+Marshall Islands,16297,17.0
+Luxembourg,393542,1000.0
+Tuvalu,2943,1.0
+Palestine,703228,5708.0
+Guinea-Bissau,9614,177.0
+Somalia,27334,1361.0
+Guernsey,35326,67.0
+Turkey,17042722,101419.0
+Gibraltar,20550,113.0
+Congo (Kinshasa),95749,""
+Bonaire Sint Eustatius and Saba,11922,41.0
+Saint Lucia,30282,410.0
+Saint Vincent and the Grenadines,9674,124.0
+Laos,219060,671.0
+Tokelau,80,0.0
+Bermuda,18860,165.0
+Falkland Islands,1923,0.0
+
+country,cum_confirmed,cum_deaths
+Denmark,3435679,9693.0
+Paraguay,808401,19880.0
+Peru,4526977,220975.0
+Burundi,54569,15.0
+Mauritius,328167,1073.0
+Mayotte,42027,187.0
+Slovakia,2667551,21227.0
+Slovenia,1356582,10083.0
+Maldives,186694,316.0
+Bahrain,710693,1536.0
+Bhutan,62697,21.0
+Kyrgyzstan,206708,1024.0
+Sierra Leone,7979,126.0
+Russia,24268728,403188.0
+Rwanda,133264,1468.0
+North Macedonia,350924,9978.0
+Sri Lanka,672798,16907.0
+Jordan,1746997,14122.0
+Bulgaria,1329988,38700.0
+Tunisia,1153361,29423.0
+Namibia,172533,4108.0
+High-income countries,429044049,2997359.0
+New Zealand,2639048,4284.0
+Lower-middle-income countries,91954400,1188026.0
+Uzbekistan,251247,1016.0
+Upper-middle-income countries,251753518,2824452.0
+Scotland,"",""
+Kiribati,5085,24.0
+Niger,9518,315.0
+Antarctica,11,""
+Antigua and Barbuda,9106,146.0
+Saint Helena,2166,0.0
+Benin,28036,163.0
+Central African Republic,15441,113.0
+Liberia,8090,294.0
+Saint Martin (French part),12324,46.0
+Micronesia,23948,""
+Holy See,29,""
+Anguilla,3904,12.0
+Samoa,17057,31.0
+Faroe Islands,34658,28.0
+MS Zaandam,9,""
+Solomon Islands,25954,199.0
+
+country,cum_confirmed,cum_deaths
+Morocco,1279115,16305.0
+Mozambique,233843,2252.0
+Mongolia,1011489,2136.0
+Andorra,48015,159.0
+Monaco,17181,67.0
+Puerto Rico,1252713,5938.0
+United Kingdom,24974629,232112.0
+United States,103910034,1193165.0
+Chile,5401126,64482.0
+Bahamas,39127,849.0
+Bangladesh,2051348,29499.0
+Bolivia,1212147,22387.0
+India,45041748,533623.0
+Switzerland,4457868,14170.0
+Syria,57467,3163.0
+Northern Ireland,"",""
+Sudan,63993,5046.0
+Barbados,108582,593.0
+Lithuania,1369355,9810.0
+China,99373219,122304.0
+Colombia,6391876,142727.0
+Moldova,637520,12245.0
+Guam,52287,419.0
+Guatemala,1250371,20203.0
+Uruguay,1041346,7682.0
+Curacao,45883,305.0
+Dominican Republic,661103,4384.0
+Reunion,494595,921.0
+Nigeria,267188,3155.0
+Tajikistan,17786,125.0
+Saint Kitts and Nevis,6607,46.0
+Honduras,472896,11114.0
+
+country,cum_confirmed,cum_deaths
+Austria,6082444,22534.0
+Mexico,7619458,334551.0
+Hungary,2230800,49053.0
+Nepal,1003450,12031.0
+Iran,7627863,146837.0
+Zambia,349842,4077.0
+Vietnam,11624000,43206.0
+Albania,335047,3605.0
+Norway,1512647,5732.0
+Malawi,89168,2686.0
+Cote d'Ivoire,88434,835.0
+Argentina,10101218,130663.0
+Trinidad and Tobago,191496,4390.0
+Belarus,994037,7118.0
+Bosnia and Herzegovina,403666,16392.0
+US,103802702,""
+Panama,1044821,8748.0
+Guyana,74443,1302.0
+Guinea,38572,468.0
+Greenland,11971,21.0
+Madagascar,68567,1428.0
+Turkmenistan,0,0.0
+Cook Islands,7345,2.0
+"Korea, South",30615522,""
+Wales,"",""
+Cape Verde,64474,417.0
+Martinique,230354,1104.0
+Gabon,49051,307.0
+Montserrat,1403,8.0
+Western Sahara,"",""
+Winter Olympics 2022,535,""
+England,"",""
+Macao,"",""
+
+country,cum_confirmed,cum_deaths
+Italy,26781078,197307.0
+Democratic Republic of Congo,101009,1474.0
+Angola,107481,1937.0
+Burma,633950,""
+Eritrea,10189,103.0
+Hong Kong,"",""
+Netherlands,8640008,22986.0
+Iraq,2465545,25375.0
+Philippines,4173631,66864.0
+Finland,1499712,11466.0
+Egypt,516023,24830.0
+El Salvador,201920,4230.0
+Belgium,4872829,34339.0
+Belize,71414,688.0
+Costa Rica,1234701,9372.0
+Botswana,330696,2801.0
+Brazil,37511921,702116.0
+Spain,13980340,121852.0
+Japan,33803572,74694.0
+Jersey,66391,161.0
+Kazakhstan,1504370,19072.0
+Saudi Arabia,841469,9646.0
+Haiti,34456,860.0
+Mali,33166,743.0
+Sint Maarten (Dutch part),11051,92.0
+Aruba,44224,292.0
+Diamond Princess,712,""
+Congo (Brazzaville),25375,""
+Saint Pierre and Miquelon,3426,2.0
+Tanzania,43230,846.0
+Palau,6372,10.0
+Vatican,26,0.0
+
+country,cum_confirmed,cum_deaths
+Germany,38437756,174979.0
+Ethiopia,501193,7574.0
+Cuba,1113662,8530.0
+Azerbaijan,835757,10353.0
+Gambia,12627,372.0
+Timor-Leste,23419,""
+Yemen,11945,2159.0
+Poland,6670799,120726.0
+Kuwait,667290,2570.0
+Oman,399449,4628.0
+France,38997490,168091.0
+Libya,507269,6437.0
+British Virgin Islands,7557,64.0
+Kenya,344106,5689.0
+Uganda,172154,3632.0
+Pakistan,1580631,30656.0
+New Caledonia,80163,314.0
+Malta,122796,922.0
+San Marino,25292,126.0
+Dominica,16047,74.0
+Low-income countries,1944334,43529.0
+American Samoa,8359,34.0
+Northern Mariana Islands,14912,41.0
+Taiwan,"",""
+West Bank and Gaza,703228,""
+Taiwan*,9970937,""
+French Polynesia,79387,650.0
+Tonga,16976,12.0
+Summer Olympics 2020,865,""
+Djibouti,15690,189.0
+Turks and Caicos Islands,6805,40.0
+Nauru,5393,1.0
+
+country,cum_confirmed,cum_deaths
+Latvia,977765,7475.0
+Lebanon,1239904,10947.0
+Jamaica,157181,3611.0
+Montenegro,288808,2654.0
+Portugal,5664109,28809.0
+Eswatini,75356,1427.0
+Estonia,615433,2998.0
+Serbia,2583470,18057.0
+Georgia,1863615,17150.0
+Malaysia,5309410,37351.0
+Venezuela,552695,5856.0
+Singapore,3006155,2024.0
+Ireland,1745088,9744.0
+Zimbabwe,266386,5740.0
+Ukraine,5711929,109920.0
+Canada,4819055,55282.0
+Micronesia (country),31765,65.0
+Vanuatu,12019,14.0
+Mauritania,63872,997.0
+East Timor,23460,138.0
+Greece,5673681,39258.0
+Grenada,19693,238.0
+"Korea, North",1,""
+Wallis and Futuna,3760,9.0
+North Korea,0,0.0
+Comoros,9109,160.0
+Pitcairn,4,0.0
+Cayman Islands,31472,37.0
+
