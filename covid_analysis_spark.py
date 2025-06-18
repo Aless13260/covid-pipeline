@@ -6,7 +6,10 @@
 # -------------------------------------------------------------
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import (
-    col, to_date, lag, when, sum, max as _sum, avg, count, lit, _max
+    col, to_date, lag, when, 
+    sum as _sum,         # Import 'sum' and rename it to '_sum'
+    max as _max,         # Import 'max' and rename it to '_max'
+    avg, count, lit
 )
 from pyspark.sql.window import Window
 import os, requests, tempfile, shutil
@@ -25,6 +28,7 @@ mongo_input_uri = "mongodb://localhost:27017/covid_project.cleaned_data"
 spark = (
     SparkSession.builder
     .appName("COVID-19 Batch Analysis")
+    .config("spark.sql.shuffle.partitions", 8)
     .getOrCreate()
 )
 
@@ -34,6 +38,7 @@ spark = (
 print(f"Reading data from MongoDB URI: {mongo_input_uri}")
 df = spark.read.format("mongo") \
     .option("uri", mongo_input_uri) \
+    .option("spark.mongodb.input.partitioner", "MongoSinglePartitioner") \
     .load()
 
 # 3. Verify the data was loaded correctly
