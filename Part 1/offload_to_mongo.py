@@ -19,7 +19,7 @@ if __name__ == "__main__":
 
     # --- CONFIGURE THE MONGODB DESTINATION ---
     # Replace this with your MongoDB connection details.
-    mongo_output_uri = "mongodb://localhost:27017/your_database.your_collection"
+    mongo_output_uri = "mongodb://localhost:27017/covid_project.cleaned_data"
     
     print(f"Writing data to MongoDB at: {mongo_output_uri}")
     
