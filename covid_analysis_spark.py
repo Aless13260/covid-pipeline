@@ -6,7 +6,7 @@
 # -------------------------------------------------------------
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import (
-    col, to_date, lag, when, sum as _sum, avg, count, lit
+    col, to_date, lag, when, sum, max as _sum, avg, count, lit, _max
 )
 from pyspark.sql.window import Window
 import os, requests, tempfile, shutil
@@ -14,18 +14,10 @@ import os, requests, tempfile, shutil
 # ------------------------------------------------------------------
 # CONFIG – edit paths if you want something different
 # ------------------------------------------------------------------
-REMOTE_JSON = ("https://raw.githubusercontent.com/"
-               "Aless13260/covid-pipeline/main/sample_data.json")
-LOCAL_JSON  = "sample_data.json"          # will download here if absent
-OUT_BASE    = "output"                    # HDFS or local FS
+OUT_BASE    = "/user/alexss/group_project"
+# 0. Define the MongoDB connection URI for your input data
+mongo_input_uri = "mongodb://localhost:27017/covid_project.cleaned_data"
 
-# ------------------------------------------------------------------
-# 0. Download sample_data.json if not already present
-# ------------------------------------------------------------------
-if not os.path.exists(LOCAL_JSON):
-    print(f"Downloading sample data to {LOCAL_JSON} …")
-    with open(LOCAL_JSON, "wb") as f:
-        f.write(requests.get(REMOTE_JSON).content)
 
 # ------------------------------------------------------------------
 # 1. SparkSession
@@ -37,9 +29,20 @@ spark = (
 )
 
 # ------------------------------------------------------------------
-# 2. Load JSON into a Spark DataFrame
+# 2. Load JSON from Mongodb into a Spark DataFrame
 # ------------------------------------------------------------------
-df = spark.read.json(LOCAL_JSON)
+print(f"Reading data from MongoDB URI: {mongo_input_uri}")
+df = spark.read.format("mongo") \
+    .option("uri", mongo_input_uri) \
+    .load()
+
+# 3. Verify the data was loaded correctly
+print("\nSuccessfully loaded data from MongoDB.")
+print("Schema:")
+df.printSchema()
+
+print("\nSample of the data:")
+df.show(10)
 
 # Cast date string → date type
 df = df.withColumn("date", to_date(col("date")))
@@ -119,8 +122,8 @@ latest = (
     df.orderBy("date")
       .groupBy("country")
       .agg(
-          _sum("confirmed").alias("cum_confirmed"),
-          _sum("deaths")   .alias("cum_deaths")
+          _max("confirmed").alias("cum_confirmed"),
+          _max("deaths")   .alias("cum_deaths")
       )
 )
 
